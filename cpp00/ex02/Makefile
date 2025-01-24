@@ -1,8 +1,10 @@
-NAME	= megaphone
+NAME	= phonebook
 CC		= c++
 FLAGS	= -Wall -Wextra -Werror -std=c++98
 # FLAGS	+= -fsanitize=thread -g
-SRCS	= megaphone.cpp
+SRCS	= main.cpp \
+		  contact.cpp \
+		  phonebook.cpp
 OBJS	= $(SRCS:.cpp=.o)
 
 %.o: %.cpp
