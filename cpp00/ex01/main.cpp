@@ -1,19 +1,16 @@
-#include "phonebook.hpp"
+#include "PhoneBook.hpp"
 
 int main() {
     PhoneBook   phoneBook;
-    string      command;
+    std::string      command;
     int         idx = 0;
 
     while (1)
     {
-        cout << endl << "Phonebook menu:" << endl
-                     << " [ADD] for add contact" << endl
-                     << " [SEARCH] for search and display contact" << endl
-                     << " [EXIT] for quit program" << endl
-                     << "Enter the command : ";
-        cin >> command;
-        cin.ignore();
+        std::cout << std::endl << "Phonebook menu: [ADD][SEARCH][EXIT]" << std::endl
+                  << std::endl << "Enter the command : ";
+        std::cin >> command;
+        std::cin.ignore();
 
         if (command == "ADD") {
             phoneBook.addContact(idx);
@@ -21,10 +18,10 @@ int main() {
         } else if (command == "SEARCH") {
             phoneBook.searchContact();
         } else if (command == "EXIT") {
-            cout << "Exit" << endl;
+            std::cout << "Exit" << std::endl;
             return (0);
         } else {
-            cout << "Invalid command. Please try again" << endl;
+            std::cout << "Invalid command. Please try again" << std::endl;
         }
     }
     return (0);
