@@ -1,10 +1,9 @@
-NAME	= phonebook
+NAME	= accout
 CC		= c++
 FLAGS	= -Wall -Wextra -Werror -std=c++98
 # FLAGS	+= -fsanitize=thread -g
-SRCS	= main.cpp \
-		  contact.cpp \
-		  phonebook.cpp
+SRCS	= tests.cpp \
+		  Account.cpp
 OBJS	= $(SRCS:.cpp=.o)
 
 %.o: %.cpp
