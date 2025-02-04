@@ -12,11 +12,7 @@ void    Contact::setContact(const int idx, const std::string& f_name,
 }
 
 void    Contact::displayShortContact(void) const {
-    int idx = index;
-
-    if (idx == 0)
-        idx = 8;
-    std::cout << std::right << std::setw(10) << idx << "|";
+    std::cout << std::right << std::setw(10) << index << "|";
     printStr(first_name, BAR);
     printStr(last_name, BAR);
     printStr(nickname, NL);

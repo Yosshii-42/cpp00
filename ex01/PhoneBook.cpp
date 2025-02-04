@@ -36,7 +36,7 @@ void    PhoneBook::addContact(int idx) {
         std::cin >> phone;
         handle_bad_eof_fail();
         if (!isValidNum(phone)) {
-            std::cout << "8 digits are required. Please try again." << std::endl;
+            std::cout << "*** 8 digits are required. Please try again. ***" << std::endl;
         } else {
             break ;
         }
@@ -45,8 +45,8 @@ void    PhoneBook::addContact(int idx) {
     std::cin >> secret;      
     handle_bad_eof_fail();
 
-    index = (idx + 1) % 8;
-    contacts[idx % 8].setContact(index, f_name, l_name, n_name, phone, secret);
+    index = idx % 8 + 1;
+    contacts[idx].setContact(index, f_name, l_name, n_name, phone, secret);
 }
 
 void    PhoneBook::displayList(void) const {
@@ -65,7 +65,7 @@ void    PhoneBook::searchContact(void) {
     int         index;
 
     if (!contacts[0].isRegistered()) {
-        std::cout << "No contacts have been registered. Please add a contact first." << std::endl;
+        std::cout << "\n*** No retistration. Please add a contact first. ***" << std::endl;
         return ;
     }
 
@@ -76,7 +76,7 @@ void    PhoneBook::searchContact(void) {
         std::cin >> input;
         handle_bad_eof_fail(); 
         if (!isValidInput(input) || !contacts[input[0] - '0' - 1].isRegistered())
-            std::cout << "Invalid input. Please try again" << std::endl;
+            std::cout << "*** Invalid input. Please try again ***" << std::endl;
         else
             break ;
     }

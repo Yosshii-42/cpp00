@@ -22,7 +22,7 @@ int main() {
             std::cout << "Exit" << std::endl;
             return (0);
         } else {
-            std::cout << "Invalid command. Please try again" << std::endl;
+            std::cout << "*** Invalid command. Please try again. ***" << std::endl;
         }
     }
     return (0);
