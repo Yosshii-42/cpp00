@@ -72,21 +72,18 @@ void    PhoneBook::addContact(int idx) {
         if (_handle_bad_eof_fail(f_name) == false)
             break ;
     }
-
     while (1) {
         std::cout << " last name      : ";
         std::getline(std::cin, l_name);
         if (_handle_bad_eof_fail(l_name) == false)
             break ;
     }
-
     while (1) {
         std::cout << " nickname       : ";
         std::getline(std::cin, n_name);
         if (_handle_bad_eof_fail(n_name) == false)
             break ;
     }
-
     while (1) {
         std::cout << " pohne number   : ";
         std::getline(std::cin, phone);
@@ -96,14 +93,12 @@ void    PhoneBook::addContact(int idx) {
             break ;
         }
     }
-
     while (1) {
         std::cout << " darkest secret : ";
         std::getline(std::cin, secret);
         if (_handle_bad_eof_fail(secret) == false)        
             break ;
     }
-
     index = idx % MAX_CONTACTS + 1;
     _contacts[idx].setContact(index, f_name, l_name, n_name, phone, secret);
 }
@@ -116,7 +111,6 @@ void    PhoneBook::displayList(void) const {
             _contacts[i].displayShortContact();
     }
     std::cout <<                "----------------------------------------------" << std::endl;
-
 }
 
 void    PhoneBook::searchContact(void) {
@@ -127,7 +121,6 @@ void    PhoneBook::searchContact(void) {
         std::cout << "\n*** No retistration. Please add a contact first. ***" << std::endl;
         return ;
     }
-
     displayList();
     while (1) {
         while (1) {
