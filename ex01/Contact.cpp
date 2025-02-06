@@ -13,9 +13,9 @@ void    Contact::setContact(const int idx, const std::string& f_name,
 
 void    Contact::displayShortContact(void) const {
     std::cout << std::right << std::setw(10) << _index << "|";
-    printStr(_first_name, BAR);
-    printStr(_last_name, BAR);
-    printStr(_nickname, NL);
+    _printStr(_first_name, BAR);
+    _printStr(_last_name, BAR);
+    _printStr(_nickname, NL);
 }
 
 void    Contact::displayFullContact(void) const {
@@ -31,7 +31,7 @@ void    Contact::displayFullContact(void) const {
     std::cout << "-----------------------------------" << std::endl;
 }
 
-void    Contact::printStr(const std::string& str, int end) const {
+void    Contact::_printStr(const std::string& str, int end) const {
     std::cout << std::setw(10) << (str.length() > 10 ? str.substr(0, 9) + "." : str);
     if (end == BAR) {
         std::cout << "|";

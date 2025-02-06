@@ -26,13 +26,35 @@ bool    PhoneBook::_isEmpty( const std::string& input ) {
     return (true);
 }
 
-bool   PhoneBook::_handle_bad_eof_fail( const std::string& input)
+bool   PhoneBook::_handle_bad_eof_fail( void)
 {
-    if (std::cin.bad() || std::cin.eof() || std::cin.fail())
+    if (std::cin.eof()) {
+        std::cout << "\n*** EOF detected. Exitting. ***" << std::endl;
         exit(1);
-    if (_isEmpty(input) == false)
+    }
+    if (std::cin.fail()) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "\n*** Invalid input. Please try again. ***" << std::endl;
         return (true);
+    }
     return (false);
+}
+
+void    PhoneBook::_getNewInput( const std::string& message, std::string& input, int select) {
+    while (1) {
+        std::cout << message;
+        std::getline(std::cin, input);
+        if (_handle_bad_eof_fail())
+            continue ;
+        if (!_isEmpty(input))
+            continue ;
+        if (select == NUM && !_isValidNum(input)) {
+            std::cout << "*** Numeric inputs are required. Please try again. ***" << std::endl;
+            continue ;
+        }
+        break ;
+    }    
 }
 
 void    PhoneBook::registerPhoneBook( void ) {
@@ -41,13 +63,8 @@ void    PhoneBook::registerPhoneBook( void ) {
 
     while (1)
     {
-        while (1) {
-            std::cout << std::endl << "Phonebook menu: [ADD][SEARCH][EXIT]" << std::endl
-                    << std::endl << "Enter the command : ";
-            std::getline(std::cin, command);
-            if (_handle_bad_eof_fail(command) == false)
-                break ; 
-        }
+        std::cout << std::endl << "Phonebook menu: [ADD][SEARCH][EXIT]" << std::endl;
+       _getNewInput(" Enter the command : ", command, STRING); 
         if (command == "ADD" && command.length() == 3) {
             this->addContact(idx);
             idx = (idx + 1) % 8;
@@ -66,39 +83,11 @@ void    PhoneBook::addContact(int idx) {
     int          index;
     std::string  f_name, l_name, n_name, phone, secret;
 
-    while (1) {
-        std::cout << " first name     : ";
-        std::getline(std::cin, f_name);
-        if (_handle_bad_eof_fail(f_name) == false)
-            break ;
-    }
-    while (1) {
-        std::cout << " last name      : ";
-        std::getline(std::cin, l_name);
-        if (_handle_bad_eof_fail(l_name) == false)
-            break ;
-    }
-    while (1) {
-        std::cout << " nickname       : ";
-        std::getline(std::cin, n_name);
-        if (_handle_bad_eof_fail(n_name) == false)
-            break ;
-    }
-    while (1) {
-        std::cout << " pohne number   : ";
-        std::getline(std::cin, phone);
-        if (_handle_bad_eof_fail(phone) == true || !_isValidNum(phone)) {
-            std::cout << "*** Numeric inputs are required. Please try again. ***" << std::endl;
-        } else {
-            break ;
-        }
-    }
-    while (1) {
-        std::cout << " darkest secret : ";
-        std::getline(std::cin, secret);
-        if (_handle_bad_eof_fail(secret) == false)        
-            break ;
-    }
+    _getNewInput(" first name     : ", f_name, STRING);
+    _getNewInput(" last name      : ", l_name, STRING);
+    _getNewInput(" nickname       : ", n_name, STRING);
+    _getNewInput(" pohne number   : ", phone, NUM);
+    _getNewInput(" darkest secret : ", secret, STRING);
     index = idx % MAX_CONTACTS + 1;
     _contacts[idx].setContact(index, f_name, l_name, n_name, phone, secret);
 }
@@ -123,13 +112,9 @@ void    PhoneBook::searchContact(void) {
     }
     displayList();
     while (1) {
-        while (1) {
-            std::cout << "index No. ? : ";
-            std::getline(std::cin, input);
-            if (_handle_bad_eof_fail(input) == false)
-                break ;
-        }
-        if (!(this->_isValidNum(input) && this->_isValidIndex(input)) || !_contacts[input[0] - '0' - 1].isRegistered())
+        _getNewInput(" index No. ? : ", input, STRING);
+        if (!(this->_isValidNum(input) && this->_isValidIndex(input))
+            || !_contacts[input[0] - '0' - 1].isRegistered())
             std::cout << "*** Invalid input. Please try again ***" << std::endl;
         else
             break ;
