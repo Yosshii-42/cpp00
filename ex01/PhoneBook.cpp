@@ -45,11 +45,11 @@ void    PhoneBook::_getNewInput( const std::string& message, std::string& input,
     while (1) {
         std::cout << message;
         std::getline(std::cin, input);
-        if (_handle_bad_eof_fail())
+        if (this->_handle_bad_eof_fail())
             continue ;
-        if (!_isEmpty(input))
+        if (!this->_isEmpty(input))
             continue ;
-        if (select == NUM && !_isValidNum(input)) {
+        if (select == NUM && !this->_isValidNum(input)) {
             std::cout << "*** Numeric inputs are required. Please try again. ***" << std::endl;
             continue ;
         }
@@ -64,7 +64,7 @@ void    PhoneBook::registerPhoneBook( void ) {
     while (1)
     {
         std::cout << std::endl << "Phonebook menu: [ADD][SEARCH][EXIT]" << std::endl;
-       _getNewInput(" Enter the command : ", command, STRING); 
+       this->_getNewInput(" Enter the command : ", command, STRING); 
         if (command == "ADD" && command.length() == 3) {
             this->addContact(idx);
             idx = (idx + 1) % 8;
@@ -83,21 +83,21 @@ void    PhoneBook::addContact(int idx) {
     int          index;
     std::string  f_name, l_name, n_name, phone, secret;
 
-    _getNewInput(" first name     : ", f_name, STRING);
-    _getNewInput(" last name      : ", l_name, STRING);
-    _getNewInput(" nickname       : ", n_name, STRING);
-    _getNewInput(" pohne number   : ", phone, NUM);
-    _getNewInput(" darkest secret : ", secret, STRING);
+    this->_getNewInput(" first name     : ", f_name, STRING);
+    this->_getNewInput(" last name      : ", l_name, STRING);
+    this->_getNewInput(" nickname       : ", n_name, STRING);
+    this->_getNewInput(" pohne number   : ", phone, NUM);
+    this->_getNewInput(" darkest secret : ", secret, STRING);
     index = idx % MAX_CONTACTS + 1;
-    _contacts[idx].setContact(index, f_name, l_name, n_name, phone, secret);
+    this->_contacts[idx].setContact(index, f_name, l_name, n_name, phone, secret);
 }
 
 void    PhoneBook::displayList(void) const {
     std::cout << std:: right << "     index| FirstName|  LastName|  NickName" << std::endl;
     std::cout <<                "----------------------------------------------" << std::endl;
     for (int i(0); i < MAX_CONTACTS; i++) {
-        if (_contacts[i].isRegistered())
-            _contacts[i].displayShortContact();
+        if (this->_contacts[i].isRegistered())
+            this->_contacts[i].displayShortContact();
     }
     std::cout <<                "----------------------------------------------" << std::endl;
 }
@@ -106,19 +106,19 @@ void    PhoneBook::searchContact(void) {
     std::string input;
     int         index;
 
-    if (!_contacts[0].isRegistered()) {
+    if (!this->_contacts[0].isRegistered()) {
         std::cout << "\n*** No retistration. Please add a contact first. ***" << std::endl;
         return ;
     }
     displayList();
     while (1) {
-        _getNewInput(" index No. ? : ", input, STRING);
+        this->_getNewInput(" index No. ? : ", input, STRING);
         if (!(this->_isValidNum(input) && this->_isValidIndex(input))
-            || !_contacts[input[0] - '0' - 1].isRegistered())
+            || !this->_contacts[input[0] - '0' - 1].isRegistered())
             std::cout << "*** Invalid input. Please try again ***" << std::endl;
         else
             break ;
     }
     index = input[0] - '0' - 1;
-    _contacts[index].displayFullContact();
+    this->_contacts[index].displayFullContact();
 }
