@@ -2,20 +2,27 @@
 # define PHONEBOOK_H
 
 # include <iostream>
+# include <sstream>
 # include <iomanip>
 # include <string>
 # include <cstdlib>
 # include "Contact.hpp"
 
+# define MAX_CONTACTS 8
+
 class PhoneBook {
 private:
-    Contact contacts[8];
+    Contact _contacts[MAX_CONTACTS];
+    bool    _isValidIndex( const std::string& input );
+    bool    _isValidNum( const std::string& input );
+    bool    _isEmpty( const std::string& input);
+    bool    _handle_bad_eof_fail( const std::string& input );    
 
 public:
-    void        addContact(int idx);
-    void        displayList(void) const;
-    void        searchContact(void);
-    static bool handle_bad_eof_fail(void);    
+    void    registerPhoneBook(void);
+    void    addContact(int idx);
+    void    displayList(void) const;
+    void    searchContact(void);
 };
 
 #endif

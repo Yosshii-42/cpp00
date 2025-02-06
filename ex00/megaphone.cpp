@@ -13,7 +13,8 @@ int main(int argc, char **argv)
 			else
 				uppered += argv[i][j];
 		}
-		std::cout << uppered << std::endl;
+		std::cout << uppered;
 	}
+	std::cout << std::endl;
 	return (0);
 }

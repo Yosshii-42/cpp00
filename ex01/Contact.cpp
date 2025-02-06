@@ -24,7 +24,10 @@ void    Contact::displayFullContact(void) const {
     std::cout << "last name      : " << last_name << std::endl;
     std::cout << "nickname       : " << nickname << std::endl;
     std::cout << "phone number   : " << phone_number << std::endl;
-    std::cout << "darkest secret : " << darkest_secret << std::endl;
+    std::cout << "darkest secret : ";
+    for (int i(0); i < (int)darkest_secret.length(); ++i)
+        std::cout << ".";
+    std::cout << std::endl;
     std::cout << "-----------------------------------" << std::endl;
 }
 
