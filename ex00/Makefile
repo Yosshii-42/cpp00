@@ -1,17 +1,17 @@
 NAME	= megaphone
-CC		= c++
+CPP		= c++
 FLAGS	= -Wall -Wextra -Werror -std=c++98
 # FLAGS	+= -fsanitize=thread -g
 SRCS	= megaphone.cpp
 OBJS	= $(SRCS:.cpp=.o)
 
 %.o: %.cpp
-	$(CC) $(FLAGS) -c $< -o $@
+	$(CPP) $(FLAGS) -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) -o $(NAME)
+	$(CPP) $(FLAGS) $(OBJS) -o $(NAME)
 
 clean:
 	rm -f $(OBJS)

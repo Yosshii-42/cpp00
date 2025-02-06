@@ -16,7 +16,6 @@ private:
     std::string _nickname;
     std::string _phone_number;
     std::string _darkest_secret;
-
     void    _printStr(const std::string& str, int end) const;
 
 public:
