@@ -6,6 +6,7 @@
 # include <iomanip>
 # include <string>
 # include <cstdlib>
+# include <limits>
 # include "Contact.hpp"
 
 # define MAX_CONTACTS 8
