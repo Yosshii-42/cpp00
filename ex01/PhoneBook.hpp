@@ -19,8 +19,9 @@ private:
     bool    _isValidIndex( const std::string& input );
     bool    _isValidNum( const std::string& input );
     bool    _isEmpty( const std::string& input);
+    bool    _isStrMatch( const std::string& str, std::string input );
     void    _getNewInput( const std::string& message, std::string& input, int select);
-    bool    _handle_bad_eof_fail( void );
+    bool    _handle_eof_fail( void );
 
 public:
     void    registerPhoneBook(void);

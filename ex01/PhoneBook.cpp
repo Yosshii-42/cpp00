@@ -20,22 +20,22 @@ bool    PhoneBook::_isValidNum(const std::string& input) {
 
 bool    PhoneBook::_isEmpty( const std::string& input ) {
     if (input.empty()) {
-        std::cout << "\n*** No input. Please try again. ***" << std::endl;
+        std::cerr << "\n*** No input. Please try again. ***" << std::endl;
         return (false);
     }
     return (true);
 }
 
-bool   PhoneBook::_handle_bad_eof_fail( void)
+bool   PhoneBook::_handle_eof_fail( void)
 {
     if (std::cin.eof()) {
-        std::cout << "\n*** EOF detected. Exitting. ***" << std::endl;
+        std::cerr << "\n*** EOF detected. Exitting. ***" << std::endl;
         exit(1);
     }
     if (std::cin.fail()) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "\n*** Invalid input. Please try again. ***" << std::endl;
+        std::cerr << "\n*** Invalid input. Please try again. ***" << std::endl;
         return (true);
     }
     return (false);
@@ -45,16 +45,22 @@ void    PhoneBook::_getNewInput( const std::string& message, std::string& input,
     while (1) {
         std::cout << message;
         std::getline(std::cin, input);
-        if (this->_handle_bad_eof_fail())
+        if (this->_handle_eof_fail())
             continue ;
         if (!this->_isEmpty(input))
             continue ;
         if (select == NUM && !this->_isValidNum(input)) {
-            std::cout << "*** Numeric inputs are required. Please try again. ***" << std::endl;
+            std::cerr << "*** Numeric inputs are required. Please try again. ***" << std::endl;
             continue ;
         }
         break ;
     }    
+}
+
+bool    PhoneBook::_isStrMatch( const std::string& str, std::string input ) {
+    if (str.length() == input.length())
+        return (true);
+    return (false);
 }
 
 void    PhoneBook::registerPhoneBook( void ) {
@@ -64,17 +70,17 @@ void    PhoneBook::registerPhoneBook( void ) {
     while (1)
     {
         std::cout << std::endl << "Phonebook menu: [ADD][SEARCH][EXIT]" << std::endl;
-       this->_getNewInput(" Enter the command : ", command, STRING); 
-        if (command == "ADD" && command.length() == 3) {
+        this->_getNewInput(" Enter the command : ", command, STRING);
+        if (_isStrMatch("ADD", command)) {
             this->addContact(idx);
             idx = (idx + 1) % 8;
-        } else if (command == "SEARCH" && command.length() == 6) {
+        } else if (_isStrMatch("SEARCH", command)) {
             this->searchContact();
-        } else if (command == "EXIT" && command.length() == 4) {
+        } else if (_isStrMatch("EXIT", command)) {
             std::cout << "Exit" << std::endl;
             return ;
         } else {
-            std::cout << "*** Invalid command. Please try again. ***" << std::endl;
+            std::cerr << "*** Invalid command. Please try again. ***" << std::endl;
         }
     }    
 }
@@ -107,7 +113,7 @@ void    PhoneBook::searchContact(void) {
     int         index;
 
     if (!this->_contacts[0].isRegistered()) {
-        std::cout << "\n*** No retistration. Please add a contact first. ***" << std::endl;
+        std::cerr << "\n*** No retistration. Please add a contact first. ***" << std::endl;
         return ;
     }
     displayList();
@@ -115,7 +121,7 @@ void    PhoneBook::searchContact(void) {
         this->_getNewInput(" index No. ? : ", input, STRING);
         if (!(this->_isValidNum(input) && this->_isValidIndex(input))
             || !this->_contacts[input[0] - '0' - 1].isRegistered())
-            std::cout << "*** Invalid input. Please try again ***" << std::endl;
+            std::cerr << "*** Invalid input. Please try again ***" << std::endl;
         else
             break ;
     }
